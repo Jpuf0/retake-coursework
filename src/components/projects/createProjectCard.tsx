@@ -2,30 +2,35 @@ import React, { useState } from "react";
 import { Plus } from "lucide-react";
 import { Card, CardContent } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
-import { Dialog, DialogFooter, DialogHeader, DialogContent, DialogTitle} from "~/components/ui/dialog";
+import {
+  Dialog,
+  DialogFooter,
+  DialogHeader,
+  DialogContent,
+  DialogTitle,
+} from "~/components/ui/dialog";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 import { toast } from "sonner";
 
-export default function createProjectCard() { 
-  const [ isDialogOpen, setIsDialogOpen ] = useState(false);
-  const [ projectName, setProjectName ] = useState("");
-  const [ projectDescription, setProjectDescription ] = useState("");
+export default function CreateProjectCard() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [projectName, setProjectName] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
   const utils = api.useUtils();
-
 
   const createProject = api.projects.create.useMutation({
     onSuccess: () => {
-      utils.projects.getAll.invalidate();
+      void utils.projects.getAll.invalidate();
       toast.success(`Project "${projectName}" created successfully`, {
-        description: projectDescription
+        description: projectDescription,
       });
       handleCloseDialog();
     },
     onError: () => {
       console.log("Error creating project");
-    }
-  })
+    },
+  });
 
   const handleOpenDialog = () => setIsDialogOpen(true);
   const handleCloseDialog = () => {
@@ -37,25 +42,25 @@ export default function createProjectCard() {
   const handleCreateProject = () => {
     createProject.mutate({
       name: projectName,
-      description: projectDescription
+      description: projectDescription,
+      status: "In Progress",
     });
   };
 
   return (
     <>
       <Card
-        className="shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center cursor-pointer"
+        className="flex cursor-pointer flex-col items-center justify-center shadow-md transition-shadow duration-300 hover:shadow-lg"
         onClick={handleOpenDialog}
       >
         <CardContent className="flex flex-col items-center py-8">
-          <Plus size={48} className="text-gray-400 mb-2" />
-          <p className="text-lg font-semibold text-gray-500">Create New Project</p>
+          <Plus size={48} className="mb-2 text-gray-400" />
+          <p className="text-lg font-semibold text-gray-500">
+            Create New Project
+          </p>
         </CardContent>
       </Card>
-      <Dialog
-        open={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-      >
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Create New Project</DialogTitle>
@@ -85,14 +90,18 @@ export default function createProjectCard() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={handleCloseDialog}>Cancel</Button>
-            <Button onClick={handleCreateProject} disabled={createProject.isPending}>
-              {createProject.isPending ? 'Creating...' : 'Create'}
+            <Button variant="outline" onClick={handleCloseDialog}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleCreateProject}
+              disabled={createProject.isPending}
+            >
+              {createProject.isPending ? "Creating..." : "Create"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
-
-  )
+  );
 }

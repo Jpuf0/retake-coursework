@@ -49,7 +49,7 @@ export default function Projects() {
 
   const deleteProject = api.projects.delete.useMutation({
     onSuccess: () => {
-      utils.projects.getAll.invalidate();
+      void utils.projects.getAll.invalidate();
       toast.success("Project deleted successfully");
     },
     onError: (e) => {
@@ -82,7 +82,7 @@ export default function Projects() {
             Project List
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[...Array(6)].map((_, index) => (
+            {[...Array(6) as undefined[]].map((_, index) => (
               <Card key={index} className="shadow-md animate-pulse">
                 <CardHeader>
                   <div className="h-6 bg-gray-200 rounded w-3/4"></div>

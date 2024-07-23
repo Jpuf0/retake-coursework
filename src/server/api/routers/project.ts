@@ -12,6 +12,7 @@ export const projectRouter = createTRPCRouter({
         { 
           name: z.string().min(1),
           description: z.string().min(1),
+          status: z.string().min(1),
         }
       )
     )
@@ -20,6 +21,7 @@ export const projectRouter = createTRPCRouter({
         data: {
           name: input.name,
           description: input.description,
+          status: input.status,
           createdBy: { connect: { id: ctx.session.user.id } },
         },
       });

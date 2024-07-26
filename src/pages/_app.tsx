@@ -7,6 +7,7 @@ import { Toaster } from "~/components/ui/sonner";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import NavBar from "~/components/nav/navbar";
 
 const app: AppType<{ session: Session | null }> = ({
   Component,
@@ -15,9 +16,12 @@ const app: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <div className={GeistSans.className}>
-        <Component {...pageProps} />
+        <div className="flex h-screen flex-col">
+          <NavBar />
+          <Component {...pageProps} />
+        </div>
       </div>
-      <Toaster richColors/>
+      <Toaster richColors />
     </SessionProvider>
   );
 };

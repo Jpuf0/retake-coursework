@@ -15,17 +15,45 @@ datasource db {
 }
 
 model Project {
-    id          Int      @id @default(autoincrement())
+    id          String @id @default(cuid())
     name        String
     description String
     status      String
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+
+    columns Column[]
+    tasks   Task[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
 
     @@index([name])
+}
+
+model Column {
+    id      String  @id @default(cuid())
+    name    String
+    boardId String
+    board   Project @relation(fields: [boardId], references: [id])
+
+    tasks     Task[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Task {
+    id       Int    @id @default(autoincrement())
+    content  String
+    columnId String
+    column   Column @relation(fields: [columnId], references: [id])
+
+    boardId String
+    board   Project @relation(fields: [boardId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 // Necessary for Next auth

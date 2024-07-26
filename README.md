@@ -5,8 +5,9 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 ## How to run
 
 1. clone the repo
-
-2. cd into the project
+1.1. make sure bun is installed
+    if not go to bun.sh to install it.
+3. cd into the project
 
 ```bash
 cd up2117614

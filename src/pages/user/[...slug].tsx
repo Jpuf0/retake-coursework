@@ -18,6 +18,7 @@ import {
 import { toast } from "sonner";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { ScrollArea } from "~/components/ui/scroll-area";
 
 const MINIMUM_LOADING_TIME = 500;
 
@@ -135,37 +136,38 @@ export default function Projects() {
         <h1 className="mb-4 text-2xl font-bold text-white sm:text-[3rem]">
           Project List
         </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {projects?.map((project) => (
-            <Card
-              key={project.id}
-              className="group relative cursor-pointer shadow-md transition-shadow duration-300 hover:shadow-lg"
-              onClick={() => router.push(`/b/${project.id}`)}
-            >
-              <CardHeader>
-                <CardTitle className="text-lg font-semibold">
-                  {project.name}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="mb-2 text-gray-600">{project.description}</p>
-                <p className="text-sm font-medium">
-                  Status:{" "}
-                  <span
-                    className={`${project.status === "Completed" ? "text-green-500" : "text-blue-500"}`}
-                  >
-                    {project.status}
-                  </span>
-                </p>
-              </CardContent>
-              <DeleteProjectAlert
-                onClick={() => handleDeleteProject(project.id)}
-              />
-            </Card>
-          ))}
-
-          <CreateProjectCard />
-        </div>
+        <ScrollArea className="h-[800px] w-[1400px] flex-grow">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {projects?.map((project) => (
+              <Card
+                key={project.id}
+                className="group relative cursor-pointer shadow-md transition-shadow duration-300 hover:shadow-lg"
+                onClick={() => router.push(`/b/${project.id}`)}
+              >
+                <CardHeader>
+                  <CardTitle className="text-lg font-semibold">
+                    {project.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="mb-2 text-gray-600">{project.description}</p>
+                  <p className="text-sm font-medium">
+                    Status:{" "}
+                    <span
+                      className={`${project.status === "Completed" ? "text-green-500" : "text-blue-500"}`}
+                    >
+                      {project.status}
+                    </span>
+                  </p>
+                </CardContent>
+                <DeleteProjectAlert
+                  onClick={() => handleDeleteProject(project.id)}
+                />
+              </Card>
+            ))}
+            <CreateProjectCard />
+          </div>
+        </ScrollArea>
       </div>
     </main>
   );

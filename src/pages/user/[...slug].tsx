@@ -89,7 +89,7 @@ export default function Projects() {
 
       return () => clearTimeout(timer);
     }
-  }, [tRPCLoading]);
+  }, [tRPCLoading, session]);
 
   if (isLoading) {
     return (

@@ -2,12 +2,12 @@
  * Integration tests for the `task` router.
  */
 import type { inferProcedureInput } from "@trpc/server";
-import { AppRouter, createCaller } from "../root";
-import { createInnerTRPCContext, createTRPCContext } from "../trpc";
+import { type AppRouter, createCaller } from "../root";
+import { createInnerTRPCContext } from "../trpc";
 import { expect, test } from "vitest";
 
 test("create and get task", async () => {
-  const ctx = await createInnerTRPCContext({
+  const ctx = createInnerTRPCContext({
     session: {
       user: { id: "clz2c3vxg000013e6rab2cnaw", name: "Test User" },
       expires: "1",
@@ -39,7 +39,7 @@ test("create and get task", async () => {
 });
 
 test("create and delete task", async () => {
-  const ctx = await createInnerTRPCContext({
+  const ctx = createInnerTRPCContext({
     session: {
       user: { id: "clz2c3vxg000013e6rab2cnaw", name: "Test User" },
       expires: "1",
@@ -75,7 +75,7 @@ test("create and delete task", async () => {
 });
 
 test("update task content", async () => {
-  const ctx = await createInnerTRPCContext({
+  const ctx = createInnerTRPCContext({
     session: {
       user: { id: "clz2c3vxg000013e6rab2cnaw", name: "Test User" },
       expires: "1",
@@ -114,7 +114,7 @@ test("update task content", async () => {
 });
 
 test("update tasks position on board", async () => {
-  const ctx = await createInnerTRPCContext({
+  const ctx = createInnerTRPCContext({
     session: {
       user: { id: "clz2c3vxg000013e6rab2cnaw", name: "Test User" },
       expires: "1",

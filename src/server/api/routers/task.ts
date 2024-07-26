@@ -1,4 +1,4 @@
-import { Task } from "@prisma/client";
+import { type Task } from "@prisma/client";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";

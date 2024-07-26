@@ -1,12 +1,24 @@
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Column, Task } from "@prisma/client";
-import { GripVertical, Trash2 } from "lucide-react";
+import { type Column, type Task } from "@prisma/client";
+import { cva } from "class-variance-authority";
+import { Trash2 } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { api } from "~/utils/api";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import {
@@ -28,18 +40,6 @@ import {
 import { ScrollArea } from "../ui/scroll-area";
 import { Textarea } from "../ui/textarea";
 import { TaskCard } from "./TaskCard";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "../ui/alert-dialog";
-import { cva } from "class-variance-authority";
 
 const createTaskFormSchema = z.object({
   content: z.string(),
@@ -65,7 +65,7 @@ const CreateTaskCard: React.FC<{
     if (form.formState.isSubmitted) {
       form.reset();
     }
-  }, [form.formState]);
+  }, [form]);
 
   return (
     <Dialog>

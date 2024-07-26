@@ -1,5 +1,5 @@
-import { Active, DataRef, Over } from "@dnd-kit/core";
-import { Column, Task } from "@prisma/client";
+import { type Active, type DataRef, type Over } from "@dnd-kit/core";
+import { type Column, type Task } from "@prisma/client";
 
 type ColumnDragData = {
   type: "Column";

@@ -1,5 +1,3 @@
-import { api } from "~/utils/api";
-import { BoardColumn } from "./Column";
 import {
   DndContext,
   DragOverlay,
@@ -7,19 +5,16 @@ import {
   type DragOverEvent,
   type DragStartEvent,
 } from "@dnd-kit/core";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { type Column, type Task } from "@prisma/client";
 import { useEffect, useMemo, useState } from "react";
-import {
-  SortableContext,
-  arrayMove,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { z } from "zod";
+import { api } from "~/utils/api";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -29,9 +24,10 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { hasDraggableData } from "./utils";
-import { Column, Task } from "@prisma/client";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { BoardColumn } from "./Column";
 import { TaskCard } from "./TaskCard";
+import { hasDraggableData } from "./utils";
 
 const addColumnFormSchema = z.object({
   name: z.string(),
@@ -57,7 +53,7 @@ const AddColumnCard: React.FC<{
     if (form.formState.isSubmitted) {
       form.reset();
     }
-  }, [form.formState]);
+  }, [form]);
 
   return (
     <Card>

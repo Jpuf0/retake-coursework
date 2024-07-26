@@ -2,12 +2,12 @@
  * Integration tests for the `project` router.
  */
 import type { inferProcedureInput } from "@trpc/server";
-import { AppRouter, createCaller } from "../root";
-import { createInnerTRPCContext, createTRPCContext } from "../trpc";
 import { expect, test } from "vitest";
+import { createCaller, type AppRouter } from "../root";
+import { createInnerTRPCContext } from "../trpc";
 
 test("create and get project", async () => {
-  const ctx = await createInnerTRPCContext({
+  const ctx = createInnerTRPCContext({
     session: {
       user: { id: "clz2c3vxg000013e6rab2cnaw", name: "Test User" },
       expires: "1",
@@ -29,7 +29,7 @@ test("create and get project", async () => {
 });
 
 test("create and delete project", async () => {
-  const ctx = await createInnerTRPCContext({
+  const ctx = createInnerTRPCContext({
     session: {
       user: { id: "clz2c3vxg000013e6rab2cnaw", name: "Test User" },
       expires: "1",

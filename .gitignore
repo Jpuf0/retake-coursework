@@ -47,3 +47,6 @@ yarn-error.log*
 
 #direnv files
 .direnv
+
+# doc files
+doc

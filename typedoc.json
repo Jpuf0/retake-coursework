@@ -1,0 +1,7 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/**/*.ts"],
+  "exclude": ["**/node_modules/**"],
+  "name": "Up2117614 Project",
+  "out": "doc"
+}

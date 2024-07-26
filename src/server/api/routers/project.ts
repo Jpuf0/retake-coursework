@@ -45,20 +45,6 @@ export const projectRouter = createTRPCRouter({
           id: input.id,
           createdById: ctx.session.user.id,
         },
-        include: {
-          columns: {
-            include: {
-              tasks: true,
-            },
-          },
-        },
       });
     }),
-
-  getLatest: protectedProcedure.query(({ ctx }) => {
-    return ctx.db.project.findFirst({
-      orderBy: { createdAt: "desc" },
-      where: { createdBy: { id: ctx.session.user.id } },
-    });
-  }),
 });
